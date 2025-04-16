@@ -10,20 +10,18 @@ parser = argparse.ArgumentParser(
     formatter_class=argparse.RawTextHelpFormatter
 )
 
-parser.add_argument('--sender', type=str, default='rednazskoorb@gmail.com', help='Email address to send from')
-parser.add_argument('--password', type=str, default='icox wnqo xcao ttkk', help='App password for the sender email')
+
 
 parser.add_argument('to', type=str, help='Email recipient')
 parser.add_argument('subject', type=str, help='Email Subject')
 parser.add_argument('count', type=int, help='Size of Email Bomb')
 parser.add_argument('body', type=str, nargs='?', default=None, help='Optional Email Body (leave blank for random messages)')
+parser.add_argument('sender', type=str, help='Email address to send from')
+parser.add_argument('password', type=str, help='App password for the sender email')
 
 args = parser.parse_args()
 
 spam_messages_text = "messages.txt"
-
-
-
 
 with open(spam_messages_text, "r") as file:
     phrases = file.readlines()
