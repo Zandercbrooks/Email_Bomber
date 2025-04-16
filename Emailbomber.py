@@ -27,6 +27,12 @@ for i in range(1000):
     msg['subject'] = subject
     msg.set_content(phrases[i].strip())
     try:
+
+        #Ports to use incase 465 Doesnt work for you
+        # 25 - Some custom mail servers (rarely used by Gmail/Yahoo/Outlook)
+        # 465 - Gmail, Yahoo, AOL, Zoho
+        # 587 - Gmail, Yahoo, Outlook, iCloud, Zoho
+        # 2525 - Mailgun, SendGrid, Postmark
         with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
             smtp.login(email_sender,email_password)
             smtp.send_message(msg)
