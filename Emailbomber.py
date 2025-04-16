@@ -12,7 +12,7 @@ parser = argparse.ArgumentParser(
 
 
 
-parser.add_argument('to', type=str, help='Email recipient')
+parser.add_argument('recipient', type=str, help='Email recipient')
 parser.add_argument('subject', type=str, help='Email Subject')
 parser.add_argument('count', type=int, help='Size of Email Bomb')
 parser.add_argument('body', type=str, nargs='?', default=None, help='Optional Email Body (leave blank for random messages)')
@@ -35,7 +35,7 @@ def send_email(i):
 
     msg = EmailMessage()
     msg['From'] = args.sender
-    msg['To'] = args.to
+    msg['recipient'] = args.to
     msg['subject'] = args.subject
     if(args.body):
         msg.set_content(args.body)
