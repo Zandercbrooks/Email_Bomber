@@ -8,10 +8,10 @@ Email bomber created by Zander Brooks
 
 ## Features
 
-- Sends 1000 emails to a target inbox
+- Sends emails to a target inbox
 - Pulls randomized phrases from a local text file (`messages.txt`)
 - Uses secure Gmail SMTP over SSL
-- Automatically shuffles and selects messages without repetition
+- Automatically shuffles and selects messages
 
 ## Extra Help
 Install dependencies:
