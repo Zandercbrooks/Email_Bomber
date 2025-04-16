@@ -3,12 +3,6 @@ import random
 import argparse
 from email.message import EmailMessage
 
-# enter YOUR email and create password 
-
-
-
-
-
 parser = argparse.ArgumentParser(
     description="📨 Email Bomber Script by Zander Brooks",
     epilog="Example usage:\n  python email_bomber.py example_subject recipient@example.com 100 --optional body",
