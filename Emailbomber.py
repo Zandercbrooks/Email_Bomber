@@ -9,7 +9,7 @@ email_receiver = "dadgarkiani123@gmail.com"
 
 spam_messages_text = "EmailBomber/messages.txt"
 
-subject = "ILOVEYOU"
+subject = "ILOVEYOU" # trubute to ILOVEYOU Virus
 
 
 with open(spam_messages_text, "r") as file:

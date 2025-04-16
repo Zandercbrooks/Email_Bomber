@@ -17,3 +17,5 @@ Email bomber created by Zander Brooks
 Install dependencies:
 ```bash
 pip install secure-smtplib
+
+## modify messages.txt as you wish to change the messages sent
